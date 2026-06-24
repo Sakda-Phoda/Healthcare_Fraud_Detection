@@ -44,6 +44,8 @@ To prepare the dataset for my deep learning model, I performed several essential
 * Dropped high-cardinality identifier columns (`provider_id`, `claim_id`, `diagnosis_code`, `procedure_code`) that would not generalize well.
 * Crucially, I removed the `claim_status` and `approved_amount` features to prevent target leakage, as these are post-decision variables not available at the time of claim submission.
 
+## Exploratory Data Analysis (EDA)
+
 ## Model Building & Feature Engineering
 Before training the model, I focused on robust feature engineering to handle the diverse data types and temporal aspects of the dataset:
 * Extracted `weekend`, `dayofweek`, `dayofmonth`, and `month` components from the `claim_submission_date`.
@@ -63,3 +65,19 @@ I evaluated my model using PR-AUC (Average Precision) as the primary metric, sin
 * The optimized Feed-Forward Neural Network achieved a **PR-AUC of 0.68**, representing a significant (~8x) lift compared to the baseline positive rate of 0.08.
 * The model also achieved an impressive **ROC-AUC of 0.96**.
 * By tuning the decision threshold on the validation set, I optimized the model to maximize recall while keeping precision at or above 0.5. At this threshold, my model successfully catches **80% of all fraudulent claims** (Recall = 0.80) with a 50% precision rate. This performance makes the Neural Network my optimal choice, as it aligns perfectly with my strategic goal of heavily favoring fraud detection over minimizing false alarms.
+
+![alt text](image/image.png)
+![alt text](image/image-1.png)
+![alt text](image/image-2.png)
+
+## Feature Importance
+To ensure the model is interpretable and transparent, I utilized **SHAP** with a `DeepExplainer` to evaluate the global feature importance of the neural network. This analysis helps identify which variables are the strongest drivers in flagging a claim as fraudulent.
+
+Based on the SHAP analysis, the top three most influential features in detecting fraud are:
+1. **`days_between_service_and_claim`**: This is by far the strongest predictor. Shorter delays between the service date and the claim submission date are highly associated with a greater risk of fraud.
+2. **`claim_amount`**: Higher monetary claim amounts significantly increase the likelihood of the claim being flagged as fraudulent.
+3. **`number_of_claims_per_provider_monthly`**: Providers submitting a higher volume of claims in a given month are more likely to be associated with fraudulent claims.
+
+These insights confirm that the model relies on intuitive, logical patterns—such as rapid, high-value submissions from high-volume providers—to identify potential fraud.
+
+![alt text](image/image-3.png)
