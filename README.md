@@ -66,9 +66,9 @@ I evaluated my model using PR-AUC (Average Precision) as the primary metric, sin
 * The model also achieved an impressive **ROC-AUC of 0.96**.
 * By tuning the decision threshold on the validation set, I optimized the model to maximize recall while keeping precision at or above 0.5. At this threshold, my model successfully catches **80% of all fraudulent claims** (Recall = 0.80) with a 50% precision rate. This performance makes the Neural Network my optimal choice, as it aligns perfectly with my strategic goal of heavily favoring fraud detection over minimizing false alarms.
 
-![alt text](image/image.png)
-![alt text](image/image-1.png)
-![alt text](image/image-2.png)
+![alt text](image/Healthcare_Fraud_Detection_1.png)
+![alt text](image/Healthcare_Fraud_Detection_2.png)
+![alt text](image/Healthcare_Fraud_Detection_3.png)
 
 ## Feature Importance
 To ensure the model is interpretable and transparent, I utilized **SHAP** with a `DeepExplainer` to evaluate the global feature importance of the neural network. This analysis helps identify which variables are the strongest drivers in flagging a claim as fraudulent.
@@ -80,4 +80,4 @@ Based on the SHAP analysis, the top three most influential features in detecting
 
 These insights confirm that the model relies on intuitive, logical patterns—such as rapid, high-value submissions from high-volume providers—to identify potential fraud.
 
-![alt text](image/image-3.png)
+![alt text](image/Healthcare_Fraud_Detection_4.png)
