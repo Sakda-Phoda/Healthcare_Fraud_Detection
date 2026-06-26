@@ -44,8 +44,6 @@ To prepare the dataset for my deep learning model, I performed several essential
 * Dropped high-cardinality identifier columns (`provider_id`, `claim_id`, `diagnosis_code`, `procedure_code`) that would not generalize well.
 * Crucially, I removed the `claim_status` and `approved_amount` features to prevent target leakage, as these are post-decision variables not available at the time of claim submission.
 
-## Exploratory Data Analysis (EDA)
-
 ## Model Building & Feature Engineering
 Before training the model, I focused on robust feature engineering to handle the diverse data types and temporal aspects of the dataset:
 * Extracted `weekend`, `dayofweek`, `dayofmonth`, and `month` components from the `claim_submission_date`.
